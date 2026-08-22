@@ -1,1 +1,17 @@
 @import "tailwindcss";
+
+.home-logo {
+    color: grey;
+}
+
+.shopping-logo {
+    color: grey;
+}
+
+.category{
+    color: grey;
+}
+
+.profile {
+    color: grey;
+}
