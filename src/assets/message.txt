@@ -1,0 +1,194 @@
+1. users
+កត់ត្រាព័ត៌មានគណនី និងការចូលប្រើប្រាស់ប្រព័ន្ធរបស់អ្នកប្រើប្រាស់ទាំងអស់។
+id $\rightarrow$ PK (Primary Key)
+name (String, ឈ្មោះអ្នកប្រើប្រាស់)
+email (String, Unique - អ៊ីម៉ែលសម្រាប់ចូលប្រព័ន្ធ)
+password (String, លេខសម្ងាត់)
+role (String: admin, teacher, student, parent)
+remember_token (String, Nullable)
+timestamps
+2. academic_years
+កត់ត្រាឆ្នាំសិក្សា ឬឆមាសសិក្សារបស់សាលា។
+id $\rightarrow$ PK (Primary Key)
+name (String, ឧ. "2025-2026")
+start_date (Date, ថ្ងៃខែចាប់ផ្តើមឆ្នាំសិក្សា)
+end_date (Date, ថ្ងៃខែបញ្ចប់ឆ្នាំសិក្សា)
+is_current (Boolean, ឆ្នាំសិក្សាបច្ចុប្បន្ន)
+timestamps
+3. admins
+កត់ត្រាព័ត៌មានលម្អិតរបស់អ្នកគ្រប់គ្រងប្រព័ន្ធ (Admin)។
+id $\rightarrow$ PK (Primary Key)
+user_id $\rightarrow$ FK (Foreign Key referencing users.id)
+phone (String, លេខទូរស័ព្ទ)
+address (Text, អាសយដ្ឋាន)
+timestamps
+4. parents
+កត់ត្រាព័ត៌មានអាណាព្យាបាល ឬឪពុកម្តាយរបស់និស្សិត។
+id $\rightarrow$ PK (Primary Key)
+user_id $\rightarrow$ FK (Foreign Key referencing users.id)
+phone (String, លេខទូរស័ព្ទ)
+occupation (String, Nullable - មុខរបរ)
+timestamps
+5. teachers
+កត់ត្រាព័ត៌មានគ្រូបង្រៀននៅក្នុងសាលា។
+id $\rightarrow$ PK (Primary Key)
+user_id $\rightarrow$ FK (Foreign Key referencing users.id)
+teacher_code (String, កូដសម្គាល់គ្រូ)
+qualification (String, កម្រិតវប្បធម៌ ឬជំនាញ)
+phone (String, លេខទូរស័ព្ទ)
+timestamps
+6. classes
+កត់ត្រាថ្នាក់រៀន ឬផ្នែកនីមួយៗក្នុងសាលា។
+id $\rightarrow$ PK (Primary Key)
+academic_year_id $\rightarrow$ FK (Foreign Key referencing academic_years.id)
+name (String, ឧ. "Class 01")
+section (String, ឧ. "A")
+timestamps
+7. students
+កត់ត្រាព័ត៌មានផ្ទាល់ខ្លួន និងប្រវត្តិរបស់និស្សិត។
+id $\rightarrow$ PK (Primary Key)
+user_id $\rightarrow$ FK (Foreign Key referencing users.id)
+class_id $\rightarrow$ FK (Foreign Key referencing classes.id)
+parent_id $\rightarrow$ FK (Foreign Key referencing parents.id, Nullable)
+roll_number (String, លេខរៀង ឬកូដនិស្សិត ឧ. "#01")
+date_of_birth (Date, ថ្ងៃខែឆ្នាំកំណើត)
+gender (String, ភេទ)
+address (Text, អាសយដ្ឋាន)
+profile_image (String, Nullable - រូបថតប្រវត្តិរូប)
+timestamps
+8. parent_students
+តារាងភា្ជប់ (Pivot Table) រវាងអាណាព្យាបាល និងនិស្សិត។
+id $\rightarrow$ PK (Primary Key)
+parent_id $\rightarrow$ FK (Foreign Key referencing parents.id)
+student_id $\rightarrow$ FK (Foreign Key referencing students.id)
+timestamps
+9. subjects
+កត់ត្រាមុខវិជ្ជាសិក្សានៅក្នុងសាលា។
+id $\rightarrow$ PK (Primary Key)
+teacher_id $\rightarrow$ FK (Foreign Key referencing teachers.id, Nullable)
+name (String, ឈ្មោះមុខវិជ្ជា ឧ. "Mathematics")
+code (String, កូដមុខវិជ្ជា)
+timestamps
+10. timetables
+កត់ត្រាកាលវិភាគរៀនប្រចាំថ្ងៃរបស់ថ្នាក់រៀននីមួយៗ។
+id $\rightarrow$ PK (Primary Key)
+class_id $\rightarrow$ FK (Foreign Key referencing classes.id)
+subject_id $\rightarrow$ FK (Foreign Key referencing subjects.id)
+teacher_id $\rightarrow$ FK (Foreign Key referencing teachers.id)
+day (String, ថ្ងៃក្នុងសប្តាហ៍ ឧ. "Monday")
+start_time (Time, ម៉ោងចាប់ផ្តើម)
+end_time (Time, ម៉ោងបញ្ចប់)
+timestamps
+11. attendances
+កត់ត្រាវត្តមានរបស់និស្សិតប្រចាំថ្ងៃ។
+id $\rightarrow$ PK (Primary Key)
+student_id $\rightarrow$ FK (Foreign Key referencing students.id)
+class_id $\rightarrow$ FK (Foreign Key referencing classes.id)
+date (Date, កាលបរិច្ឆេទវត្តមាន)
+status (String: Present, Absent, Late)
+timestamps
+12. exams
+កត់ត្រាកាលវិភាគ និងឈ្មោះការប្រឡងនីមួយៗ។
+id $\rightarrow$ PK (Primary Key)
+subject_id $\rightarrow$ FK (Foreign Key referencing subjects.id)
+class_id $\rightarrow$ FK (Foreign Key referencing classes.id)
+name (String, ឈ្មោះការប្រឡង ឧ. "Midterm Exam")
+exam_date (Date, ថ្ងៃខែប្រឡង)
+timestamps
+13. results
+កត់ត្រាពិន្ទុ និងចំណាត់ថ្នាក់របស់និស្សិតក្នុងការប្រឡង។
+id $\rightarrow$ PK (Primary Key)
+exam_id $\rightarrow$ FK (Foreign Key referencing exams.id)
+student_id $\rightarrow$ FK (Foreign Key referencing students.id)
+marks_obtained (Decimal, ពិន្ទុទទួលបាន)
+total_marks (Decimal, ពិន្ទុគោលសរុប)
+grade (String, និទ្ទេស ឧ. "A", "B", "C")
+timestamps
+14. vehicles
+កត់ត្រាព័ត៌មានរថយន្តក្រុង ឬយានជំនិះដឹកជញ្ជូនរបស់សាលា។
+id $\rightarrow$ PK (Primary Key)
+vehicle_number (String, លេខឡាន ឧ. "BUS-01")
+driver_name (String, ឈ្មោះអ្នកបើកបរ)
+driver_phone (String, លេខទូរស័ព្ទអ្នកបើកបរ)
+capacity (Integer, ចំនួនកៅអីសរុប)
+timestamps
+15. student_transports
+តារាងភា្ជប់ការប្រើប្រាស់សេវាដឹកជញ្ជូនរបស់និស្សិត។
+id $\rightarrow$ PK (Primary Key)
+student_id $\rightarrow$ FK (Foreign Key referencing students.id)
+vehicle_id $\rightarrow$ FK (Foreign Key referencing vehicles.id)
+route_name (String, ឈ្មោះខ្សែផ្លូវដឹកជញ្ជូន)
+monthly_fee (Decimal, ថ្លៃសេវាប្រចាំខែ)
+timestamps
+16. books
+កត់ត្រាបញ្ជីសារពើភណ្ឌសៀវភៅនៅក្នុងបណ្ណាល័យសាលា។
+id $\rightarrow$ PK (Primary Key)
+title (String, ចំណងជើងសៀវភៅ)
+author (String, អ្នកនិពន្ធ)
+isbn (String, Unique, Nullable - លេខកូដសៀវភៅអន្តរជាតិ)
+category (String, ប្រភេទសៀវភៅ)
+total_copies (INT, ចំនួនសៀវភៅសរុប)
+available_copies (INT, ចំនួនសៀវភៅនៅសល់អាចខ្ចីបាន)
+timestamps
+17. book_issues
+កត់ត្រាប្រវត្តិនៃការខ្ចី និងសងសៀវភៅបណ្ណាល័យរបស់និស្សិត។
+id $\rightarrow$ PK (Primary Key)
+book_id $\rightarrow$ FK (Foreign Key referencing books.id)
+student_id $\rightarrow$ FK (Foreign Key referencing students.id)
+issue_date (Date, ថ្ងៃខែខ្ចី)
+due_date (Date, ថ្ងៃខែត្រូវសងវិញ)
+return_date (Date, Nullable - ថ្ងៃខែសងជាក់ស្តែង)
+status (String: borrowed, returned, overdue)
+timestamps
+18. hostel_rooms
+កត់ត្រាបន្ទប់ និងអគារស្នាក់នៅ (Hostel) របស់សាលា។
+id $\rightarrow$ PK (Primary Key)
+room_number (String, លេខបន្ទប់ ឧ. "Room 101")
+block_name (String, ឈ្មោះអគារ ឬប្លុក)
+type (String, ប្រភេទបន្ទប់ ឧ. AC, Non-AC)
+number_of_beds (Integer, ចំនួនគ្រែក្នុងបន្ទប់)
+cost_per_bed (Decimal, ថ្លៃឈ្នួលក្នុងមួយគ្រែ)
+timestamps
+19. student_hostels
+កត់ត្រាการបែងចែកបន្ទប់ និងគ្រែស្នាក់នៅរបស់និស្សិត។
+id $\rightarrow$ PK (Primary Key)
+student_id $\rightarrow$ FK (Foreign Key referencing students.id)
+hostel_room_id $\rightarrow$ FK (Foreign Key referencing hostel_rooms.id)
+status (String: Active, Checked-Out)
+timestamps
+20. notices
+កត់ត្រាសេចក្តីប្រកាស ឬព័ត៌មានដំណឹងផ្សេងៗរបស់សាលា។
+id $\rightarrow$ PK (Primary Key)
+user_id $\rightarrow$ FK (Foreign Key referencing users.id)
+title (String, ចំណងជើងសេចក្តីប្រកាស)
+content (Text, អត្ថបទលម្អិតនៃសេចក្តីប្រកាស)
+target_audience (String, គោលដៅអ្នកទទួល ឧ. All, Students, Teachers)
+publish_date (Date, ថ្ងៃខែផ្សាយដំណឹង)
+timestamps
+21. fees
+កត់ត្រាវិក្កយបត្រ ឬកាតព្វកិច្ចបង់ថ្លៃសិក្សាផ្សេងៗរបស់និស្សិត។
+id $\rightarrow$ PK (Primary Key)
+student_id $\rightarrow$ FK (Foreign Key referencing students.id)
+academic_year_id $\rightarrow$ FK (Foreign Key referencing academic_years.id)
+title (String, ឈ្មោះវិក្កយបត្រ ឧ. "Tuition Fee Semester 1")
+amount (Decimal, ទឹកប្រាក់សរុបត្រូវបង់)
+due_date (Date, កាលបរិច្ឆេទកំណត់ត្រូវបង់)
+status (String: Unpaid, Partial, Paid)
+timestamps
+22. payments
+កត់ត្រាប្រវត្តិនៃការបង់ប្រាក់ជាក់ស្តែងរបស់និស្សិតចំពោះវិក្កយបត្រនីមួយៗ។
+id $\rightarrow$ PK (Primary Key)
+fee_id $\rightarrow$ FK (Foreign Key referencing fees.id)
+amount_paid (Decimal, ចំនួនទឹកប្រាក់ដែលបានបង់ចូល)
+payment_method (String: Cash, Bank Transfer, Card)
+transaction_reference (String, Nullable - លេខយោង ឬកូដបង់ប្រាក់)
+paid_date (Date)
+timestamps
+23. activity_logs
+កត់ត្រាសកម្មភាពសំខាន់ៗដែលអ្នកប្រើប្រាស់ធ្វើក្នុងប្រព័ន្ធ។
+id $\rightarrow$ PK (Primary Key)
+user_id $\rightarrow$ FK (Foreign Key referencing users.id)
+action (String, សកម្មភាពដែលបានធ្វើ ឧ. "Created a new student")
+ip_address (String, Nullable)
+timestamps
+Please write ER diargram and build a relationship in read.md file for me 
