@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import macbook from "../../assets/Macbook.jpg";
+import Macbook from "../../assets/macbook.jpg";
 import headphone from "../../assets/Headphone.jpg";
 
 function Hero() {
@@ -31,7 +31,7 @@ function Hero() {
           className="col-start-1 row-start-1 z-10 w-full max-w-lg sm:max-w-2xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl pointer-events-none px-4"
         >
           <img
-            src={macbook}
+            src={Macbook}
             alt="Feature Model"
             className="w-full h-auto object-contain mix-blend-screen opacity-90 scale-100 md:scale-110"
           />
