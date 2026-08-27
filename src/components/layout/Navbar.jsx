@@ -71,8 +71,8 @@ function Navbar() {
                           {[
                             "Laptops",
                             "Smartphones",
-                            "Keyboards",
                             "Headphones",
+                            "Accessories",
                           ].map((subItem) => (
                             <li key={subItem}>
                               <button
