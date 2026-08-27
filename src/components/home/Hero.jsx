@@ -1,7 +1,7 @@
-import React from "react";
+
 import { motion } from "framer-motion";
 import Macbook from "../../assets/Macbook.jpg";
-import headphone from "../../assets/Headphone.jpg";
+
 
 function Hero() {
   return (

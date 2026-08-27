@@ -1,11 +1,11 @@
-import React from 'react'
+// import React from 'react'
 
-function Wishlist() {
-  return (
-    <div>
+// function Wishlist() {
+//   return (
+//     <div>
       
-    </div>
-  )
-}
+//     </div>
+//   )
+// }
 
-export default Wishlist
+// export default Wishlist
