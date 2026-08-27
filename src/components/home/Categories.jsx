@@ -6,7 +6,7 @@ function Categories() {
   return (
     <section className="relative overflow-hidden bg-black py-20">
       {/* Background Glow */}
-      <div className="absolute left-1/2 top-20 h-72 w-72 -translate-x-1/2 rounded-full bg-blue-500/10 blur-[120px]" />
+      <div className="absolute left-1/2 top-20 h-72 w-72 -translate-x-1/2 rounded-full bg-blue-500/20 blur-[120px]" />
 
       <div className="container relative z-10 mx-auto px-4">
         {/* Heading */}
