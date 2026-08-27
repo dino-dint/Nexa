@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useState } from "react";
+// import { NavLink } from "react-router-dom";
 import {
   Menu,
   X,
@@ -10,7 +10,7 @@ import {
   UserRound,
   ChevronDown,
 } from "lucide-react";
-import nexaLogo from "../../assets/nexa-logo.png";
+// import nexaLogo from "../../assets/nexa-logo.png";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -71,8 +71,8 @@ function Navbar() {
                           {[
                             "Laptops",
                             "Smartphones",
-                            "Keyboards",
                             "Headphones",
+                            "Accessories",
                           ].map((subItem) => (
                             <li key={subItem}>
                               <button
